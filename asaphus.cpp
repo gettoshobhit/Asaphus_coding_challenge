@@ -182,9 +182,39 @@ TEST_CASE("Final scores for first 8 Fibonacci numbers", "[fibonacci8]") {
 }
 
 TEST_CASE("Test absorption of green box", "[green]") {
-	// TODO
+	std::vector<uint32_t> inputs{ 1, 2, 3, 4 };
+	std::unique_ptr<Box> greenBox = Box::makeGreenBox(0.0);
+	double expected_scores[] = { 1.0, 2.25, 4.0, 9.0 };
+
+	for (size_t i = 0; i < inputs.size(); ++i) {
+		REQUIRE(greenBox->calculateScoreForGreenBox(inputs[i]) == expected_scores[i]);
+	}
 }
 
 TEST_CASE("Test absorption of blue box", "[blue]") {
-	// TODO
+	std::vector<uint32_t> inputs{ 4, 3, 2, 1 };
+	std::unique_ptr<Box> blueBox = Box::makeBlueBox(0.2);
+	double expected_scores[] = { 40, 32, 25, 19 };
+
+	for (size_t i = 0; i < inputs.size(); ++i) {
+		REQUIRE(blueBox->calculateScoreForBlueBox(inputs[i]) == expected_scores[i]);
+	}
 }
+
+TEST_CASE("Test absorption of green box without weights", "[green]") {
+	std::unique_ptr<Box> greenBox = Box::makeGreenBox(0.0);
+	REQUIRE(greenBox->calculateScoreForGreenBox(0.0) == 0.0);
+}
+
+TEST_CASE("Test absorption of blue box without weights", "[blue]") {
+	std::unique_ptr<Box> blueBox = Box::makeBlueBox(0.0);
+	REQUIRE(blueBox->calculateScoreForBlueBox(0.0) == 0.0);
+}
+
+TEST_CASE("Test play function without weights", "[play]") {
+	std::vector<uint32_t> inputs;
+	auto result = play(inputs);
+	REQUIRE(result.first == 0.0);
+	REQUIRE(result.second == 0.0);
+}
+
