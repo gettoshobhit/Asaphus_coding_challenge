@@ -1,5 +1,5 @@
 /**
- * @file asaphus_coding_challenge.cpp
+ * @file asaphus.cpp
  * @version 1.1
  * @copyright Copyright (c) 2022 Asaphus Vision GmbH
  *
